@@ -1,8 +1,6 @@
 ---
 services:
   gateway:
-    ports:
-    - "8088:8088"
     image: inductiveautomation/ignition:latest
     volumes:
       - ./services/ignition/config:/usr/local/bin/ignition/data/config 
@@ -39,22 +37,10 @@ services:
     image: liquibase/liquibase
     depends_on:
       - database
-    working_dir: /database
     volumes:
       - ./services/postgres:/database
-      - ./services/postgres/jdbc:/liquibase/classpath
       - ./scripts/wait-for-it.sh:/wait-for-it.sh
-    entrypoint: [
-      "/wait-for-it.sh",
-      "postgres:5432",
-      "--",
-      "liquibase",
-      "--classpath=/liquibase/classpath/postgresql.jar",
-      "--defaultsFile=/database/liquibase/liquibase.docker.properties",
-      "--changeLogFile=liquibase/main.yaml",
-      "update"
-    ]
-
+    entrypoint: ["/wait-for-it.sh", "postgres:5432", "--", "liquibase", "--defaultsFile=/database/liquibase/liquibase.docker.properties", "update"]
   
   # Uncomment the following lines to enable pgAdmin for database management
   # pgadmin:

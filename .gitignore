@@ -8,11 +8,6 @@
 **/conversion-report.txt
 **/.resources/
 
-# Ignition runtime-generated gateway resources
-services/ignition/config/resources/core/com.inductiveautomation.eam/**
-services/ignition/config/resources/core/com.inductiveautomation.perspective/themes/**
-services/ignition/config/resources/core/com.inductiveautomation.sfc/chart-settings/**
-
 # Secrets
 secrets/*
 
